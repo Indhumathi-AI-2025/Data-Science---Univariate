@@ -11,7 +11,7 @@ class univariate:
                 quan.append(ColumnName)
         return quan, qual
     def Centre_Percentile_IQR(quan,dataset):
-            descriptive = pd.DataFrame(index = ["Mean","Median","Mode","Q1:25%","Q2:50%","Q3:75%","99%","Q4:100%","IQR","1.5 Rule","Lesser","Greater","Min","Max"],columns = quan)
+            descriptive = pd.DataFrame(index = ["Mean","Median","Mode","Q1:25%","Q2:50%","Q3:75%","99%","Q4:100%","IQR","1.5 Rule","Lesser","Greater","Min","Max","Skew","Kurtosis"],columns = quan)
             #Mean
             for ColumnName in quan:
                 descriptive[ColumnName]["Mean"] = dataset[ColumnName].mean()
@@ -32,6 +32,8 @@ class univariate:
                 descriptive[ColumnName]["Greater"] = descriptive[ColumnName]["Q3:75%"] +  descriptive[ColumnName]["1.5 Rule"]
                 descriptive[ColumnName]["Min"] = dataset[ColumnName].min()
                 descriptive[ColumnName]["Max"] = dataset[ColumnName].max()
+                descriptive[ColumnName]["Skew"] = dataset[ColumnName].skew()
+                descriptive[ColumnName]["Kurtosis"] = dataset[ColumnName].kurtosis()
             return descriptive
     #Function for Lesser and Greater Outliers
     def less_great_outlier(quan,descriptive):
