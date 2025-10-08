@@ -52,11 +52,14 @@ class univariate:
             dataset[ColumnName][dataset[ColumnName]> descriptive[ColumnName]["Greater"]] = descriptive[ColumnName]["Greater"] 
         return dataset
     #Frequency
-    def FreqTable(ColumnName,dataset):
-        FreqTable = pd.DataFrame(columns=["Unique_Values","Frequency","Relative_Frequency","Cumsum"])  
-        FreqTable["Unique_Values"] = dataset[ColumnName].value_counts().index
-        FreqTable["Frequency"] = dataset[ColumnName].value_counts().values
-        FreqTable["Relative_Frequency"] = (FreqTable["Frequency"] / 103)
-        FreqTable["Cumsum"] = FreqTable["Relative_Frequency"].cumsum()
-        return FreqTable
+    def FreqTable(dataset):
+        freq_tables = {}  # dictionary to store frequency tables for each column
+        for ColumnName in dataset.columns:
+            freq_df = pd.DataFrame(columns=["Unique_Values","Frequency","Relative_Frequency","Cumsum"])
+            freq_df["Unique_Values"] = dataset[ColumnName].value_counts().index
+            freq_df["Frequency"] = dataset[ColumnName].value_counts().values
+            freq_df["Relative_Frequency"] = freq_df["Frequency"] / 103
+            freq_df["Cumsum"] = freq_df["Relative_Frequency"].cumsum()
+            freq_tables[ColumnName] = freq_df  # store the table for this column
+        return freq_tables
     
