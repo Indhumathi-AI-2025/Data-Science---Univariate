@@ -51,4 +51,12 @@ class univariate:
         for ColumnName in greater: 
             dataset[ColumnName][dataset[ColumnName]> descriptive[ColumnName]["Greater"]] = descriptive[ColumnName]["Greater"] 
         return dataset
+    #Frequency
+    def FreqTable(ColumnName,dataset):
+        FreqTable = pd.DataFrame(columns=["Unique_Values","Frequency","Relative_Frequency","Cumsum"])  
+        FreqTable["Unique_Values"] = dataset[ColumnName].value_counts().index
+        FreqTable["Frequency"] = dataset[ColumnName].value_counts().values
+        FreqTable["Relative_Frequency"] = (FreqTable["Frequency"] / 103)
+        FreqTable["Cumsum"] = FreqTable["Relative_Frequency"].cumsum()
+        return FreqTable
     
